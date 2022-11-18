@@ -2,6 +2,8 @@ import 'package:brew_crewirebase/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
 
+import '../../shared/constants.dart';
+
 class Register extends StatefulWidget {
   final Function toggleView;
   const Register({Key? key, required this.toggleView}) : super(key: key);
@@ -59,8 +61,12 @@ class _RegisterState extends State<Register> {
                 height: 15,
               ),
               TextFormField(
+                decoration: textInputDecoration.copyWith(
+                  hintText: 'Email',
+                ),
                 //validator: (val) => val!.isEmpty ? 'Enter an email' : null,
-                validator: (val) => EmailValidator.validate(val!) ? null : 'Enter a valid email',
+                validator: (val) =>
+                    EmailValidator.validate(val!) ? null : 'Enter a valid email',
                 onChanged: (val) {
                   setState(() => email = val);
                 },
@@ -69,6 +75,9 @@ class _RegisterState extends State<Register> {
                 height: 15,
               ),
               TextFormField(
+                decoration: textInputDecoration.copyWith(
+                  hintText: 'Password',
+                ),
                 validator: (val) =>
                     val!.length < 6 ? 'Enter an password 6+ characters long' : null,
                 obscureText: true,

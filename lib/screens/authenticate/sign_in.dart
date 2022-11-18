@@ -2,6 +2,8 @@ import 'package:brew_crewirebase/services/auth.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 
+import '../../shared/constants.dart';
+
 class SignIn extends StatefulWidget {
   final Function toggleView;
 
@@ -60,6 +62,9 @@ class _SignInState extends State<SignIn> {
                 height: 15,
               ),
               TextFormField(
+                decoration: textInputDecoration.copyWith(
+                  hintText: 'Email',
+                ),
                 validator: (val) =>
                     EmailValidator.validate(val!) ? null : 'Enter a valid email',
                 onChanged: (val) {
@@ -70,6 +75,9 @@ class _SignInState extends State<SignIn> {
                 height: 15,
               ),
               TextFormField(
+                decoration: textInputDecoration.copyWith(
+                  hintText: "Passwords",
+                ),
                 validator: (val) =>
                     val!.length < 6 ? 'Enter an password 6+ characters long' : null,
                 obscureText: true,
@@ -83,15 +91,15 @@ class _SignInState extends State<SignIn> {
               ElevatedButton(
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {
-                   dynamic result =
-                       await _auth.signInWithEmailAndPassword(email, password);
-                      if (result == null) {
-                        setState(() {
-                          error = "Sign In failed!!!";
-                        });
-                      }
-                    } else {
-                      setState(() => error = "");
+                    dynamic result =
+                        await _auth.signInWithEmailAndPassword(email, password);
+                    if (result == null) {
+                      setState(() {
+                        error = "Sign In failed!!!";
+                      });
+                    }
+                  } else {
+                    setState(() => error = "");
                   }
                 },
                 child: const Text(
