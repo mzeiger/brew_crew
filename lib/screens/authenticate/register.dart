@@ -1,17 +1,16 @@
 import 'package:brew_crewirebase/services/auth.dart';
-import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:email_validator/email_validator.dart';
 
-class SignIn extends StatefulWidget {
+class Register extends StatefulWidget {
   final Function toggleView;
-
-  const SignIn({Key? key, required this.toggleView}) : super(key: key);
+  const Register({Key? key, required this.toggleView}) : super(key: key);
 
   @override
-  State<SignIn> createState() => _SignInState();
+  State<Register> createState() => _RegisterState();
 }
 
-class _SignInState extends State<SignIn> {
+class _RegisterState extends State<Register> {
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
 
@@ -27,7 +26,7 @@ class _SignInState extends State<SignIn> {
       appBar: AppBar(
         backgroundColor: Colors.brown[400],
         elevation: 0,
-        title: const Text('Sign In to Brew Crew'),
+        title: const Text('Register for Brew Crew'),
         actions: <Widget>[
           Padding(
             padding: const EdgeInsets.symmetric(
@@ -40,7 +39,7 @@ class _SignInState extends State<SignIn> {
               child: Row(
                 children: const <Widget>[
                   Icon(Icons.person),
-                  Text('Register'),
+                  Text('Sign In'),
                 ],
               ),
             ),
@@ -60,8 +59,8 @@ class _SignInState extends State<SignIn> {
                 height: 15,
               ),
               TextFormField(
-                validator: (val) =>
-                    EmailValidator.validate(val!) ? null : 'Enter a valid email',
+                //validator: (val) => val!.isEmpty ? 'Enter an email' : null,
+                validator: (val) => EmailValidator.validate(val!) ? null : 'Enter a valid email',
                 onChanged: (val) {
                   setState(() => email = val);
                 },
@@ -83,19 +82,19 @@ class _SignInState extends State<SignIn> {
               ElevatedButton(
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {
-                   dynamic result =
-                       await _auth.signInWithEmailAndPassword(email, password);
-                      if (result == null) {
-                        setState(() {
-                          error = "Sign In failed!!!";
-                        });
-                      }
-                    } else {
-                      setState(() => error = "");
+                    dynamic result =
+                        await _auth.registerWithEmailAndPassword(email, password);
+                    if (result == null) {
+                      setState(() {
+                        error = "Registration failed!!!";
+                      });
+                    }
+                  } else {
+                    setState(() => error = "");
                   }
                 },
                 child: const Text(
-                  'Sign In',
+                  'Register',
                 ),
               ),
               const SizedBox(

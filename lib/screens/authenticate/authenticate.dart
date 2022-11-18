@@ -1,5 +1,6 @@
+import 'package:brew_crewirebase/screens/authenticate/register.dart';
+import 'package:brew_crewirebase/screens/authenticate/sign_in.dart';
 import 'package:brew_crewirebase/services/auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class Authenticate extends StatefulWidget {
@@ -10,33 +11,21 @@ class Authenticate extends StatefulWidget {
 }
 
 class AuthenticateState extends State<Authenticate> {
-  final AuthService _auth = AuthService();
+
+  bool showSignIn = true;
+
+  void toggleView() {
+    setState(() {
+      showSignIn = !showSignIn;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.brown[100],
-      appBar: AppBar(
-        backgroundColor: Colors.brown[400],
-        title: const Text('Sign In'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(
-          vertical: 20,
-          horizontal: 50,
-        ),
-        child: ElevatedButton(
-          onPressed: () async {
-            dynamic result = await _auth.signInAnon();
-            if (result == null) {
-              if (kDebugMode) {
-                print('Error with anonymous sign in');
-              }
-            }
-          },
-          child: const Text('Sign In Anonymously'),
-        ),
-      ),
-    );
+    if (showSignIn) {
+      return SignIn(toggleView: toggleView);
+    } else {
+      return Register(toggleView: toggleView);
+    }
   }
 }

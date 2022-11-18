@@ -38,6 +38,7 @@ dependencies:
   cloud_firestore:
   firebase_core:
   provider:
+  email_validator:
 
 dev_dependencies:
   flutter_test:

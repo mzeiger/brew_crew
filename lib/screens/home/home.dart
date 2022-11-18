@@ -17,18 +17,18 @@ class Home extends StatelessWidget {
         actions: <Widget>[
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: <Widget>[
-                IconButton(
-                  onPressed: () async {
-                    await _auth.signOut();
-                  },
-                  icon: const Icon(Icons.person),
-                ),
-                const Text('Logout'),
-              ],
+            child: InkWell(
+              onTap: () async {
+                await _auth.signOut();
+              },
+              child: Row(
+                children: const <Widget>[
+                  Icon(Icons.person),
+                  Text('Logout'),
+                ],
+              ),
             ),
-          )
+          ),
         ],
       ),
     );
