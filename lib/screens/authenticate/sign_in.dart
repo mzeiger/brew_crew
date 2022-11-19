@@ -1,4 +1,5 @@
 import 'package:brew_crewirebase/services/auth.dart';
+import 'package:brew_crewirebase/shared/loading.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 
@@ -21,10 +22,11 @@ class _SignInState extends State<SignIn> {
   String email = "";
   String password = "";
   String error = "";
+  bool loading = false;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return loading ? const Loading() : Scaffold(
       backgroundColor: Colors.brown[100],
       appBar: AppBar(
         backgroundColor: Colors.brown[400],
@@ -91,11 +93,13 @@ class _SignInState extends State<SignIn> {
               ElevatedButton(
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {
+                    setState(() => loading = true);
                     dynamic result =
                         await _auth.signInWithEmailAndPassword(email, password);
                     if (result == null) {
                       setState(() {
-                        error = "Sign In failed!!!";
+                        error = "Sign In Failed!!!";
+                        loading = false;
                       });
                     }
                   } else {

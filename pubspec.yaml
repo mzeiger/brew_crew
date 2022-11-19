@@ -39,6 +39,7 @@ dependencies:
   firebase_core:
   provider:
   email_validator:
+  flutter_spinkit:
 
 dev_dependencies:
   flutter_test:
