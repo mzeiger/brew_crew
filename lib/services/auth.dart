@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:brew_crewirebase/models/user.dart';
+import 'database.dart';
 
 class AuthService {
   // create User object based on FirebaseUser (UserCredential)
@@ -51,7 +52,8 @@ class AuthService {
       UserCredential result =
           await _auth.createUserWithEmailAndPassword(email: email, password: password);
       User? user = result.user;
-      return user?.uid;
+      await DatabaseService(uid: user!.uid).updateUserData('0', 'new crew member', 100);
+      return user.uid;
     } catch (e) {
       if (kDebugMode) {
         print(e.toString());

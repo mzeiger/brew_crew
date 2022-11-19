@@ -26,7 +26,9 @@ class _RegisterState extends State<Register> {
 
   @override
   Widget build(BuildContext context) {
-    return loading ? const Loading() : Scaffold(
+    return loading
+        ? const Loading()
+        : Scaffold(
             backgroundColor: Colors.brown[100],
             appBar: AppBar(
               backgroundColor: Colors.brown[400],
@@ -93,21 +95,19 @@ class _RegisterState extends State<Register> {
                       height: 10,
                     ),
                     TextFormField(
-                        controller: _matchingPWD,
-                        decoration: textInputDecoration.copyWith(
-                          hintText: 'Confirm Password',
-                        ),
-                        validator: (val) {
-                          if (_firstPWD.text != _matchingPWD.text) {
-                            return "Passwords do not match";
-                          } else {
-                            return null;
-                          }
-                        },
-                        obscureText: true,
-                        onChanged: (val) {
-                          setState(() => _confirmPassword = val);
-                        }),
+                      controller: _matchingPWD,
+                      decoration: textInputDecoration.copyWith(
+                        hintText: 'Confirm Password',
+                      ),
+                      validator: (val) {
+                        if (_firstPWD.text != _matchingPWD.text) {
+                          return "Passwords do not match";
+                        } else {
+                          return null;
+                        }
+                      },
+                      obscureText: true,
+                    ),
                     const SizedBox(
                       height: 10,
                     ),
