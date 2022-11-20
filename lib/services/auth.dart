@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:brew_crewirebase/models/user.dart';
-import '../models/registration_signin_return_structure.dart';
+import '../shared/registration_signin_return_structure.dart';
 import 'database.dart';
 
 class AuthService {

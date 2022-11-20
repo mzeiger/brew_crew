@@ -2,7 +2,7 @@ import 'package:brew_crewirebase/services/auth.dart';
 import 'package:brew_crewirebase/shared/loading.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
-import '../../models/registration_signin_return_structure.dart';
+import '../../shared/registration_signin_return_structure.dart';
 import '../../shared/constants.dart';
 
 class SignIn extends StatefulWidget {
