@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:brew_crewirebase/models/user.dart';
+import '../models/registration_signin_return_structure.dart';
 import 'database.dart';
 
 class AuthService {
@@ -37,12 +38,14 @@ class AuthService {
       UserCredential result =
       await _auth.signInWithEmailAndPassword(email: email, password: password);
       User? user = result.user;
-      return user?.uid;
+      //return user?.uid;
+      return RegistrationSignInReturn(description: "", flag: user!.uid);
     } catch (e) {
       if (kDebugMode) {
         print(e.toString());
       }
-      return null;
+      //return null;
+      return RegistrationSignInReturn(description: e.toString(),flag: null);
     }
   }
 
@@ -53,12 +56,14 @@ class AuthService {
           await _auth.createUserWithEmailAndPassword(email: email, password: password);
       User? user = result.user;
       await DatabaseService(uid: user!.uid).updateUserData('0', 'new crew member', 100);
-      return user.uid;
+      //return user.uid;
+      return RegistrationSignInReturn(description: "", flag: user.uid);
     } catch (e) {
       if (kDebugMode) {
         print(e.toString());
       }
-      return null;
+      //return null;
+      return RegistrationSignInReturn(description: e.toString(),flag: null);
     }
   }
 

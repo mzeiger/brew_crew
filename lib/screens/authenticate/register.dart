@@ -2,6 +2,7 @@ import 'package:brew_crewirebase/services/auth.dart';
 import 'package:brew_crewirebase/shared/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
+import '../../models/registration_signin_return_structure.dart';
 import '../../shared/constants.dart';
 
 class Register extends StatefulWidget {
@@ -115,13 +116,17 @@ class _RegisterState extends State<Register> {
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
                           setState(() => loading = true);
-                          dynamic result =
+                          RegistrationSignInReturn  result =  // originally dynamic
                               await _auth.registerWithEmailAndPassword(email, password);
-                          if (result == null) {
+                          if (result.flag == null) {
                             setState(() {
-                              error = "Registration failed!!!";
+                              //error = "Registration failed!!!";
+                              error = result.description;
                               loading = false;
                             });
+                          }
+                          else {
+                            print(result.flag);
                           }
                         } else {
                           setState(() => error = "");

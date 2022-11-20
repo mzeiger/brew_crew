@@ -2,7 +2,7 @@ import 'package:brew_crewirebase/services/auth.dart';
 import 'package:brew_crewirebase/shared/loading.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
-
+import '../../models/registration_signin_return_structure.dart';
 import '../../shared/constants.dart';
 
 class SignIn extends StatefulWidget {
@@ -78,7 +78,7 @@ class _SignInState extends State<SignIn> {
               ),
               TextFormField(
                 decoration: textInputDecoration.copyWith(
-                  hintText: "Passwords",
+                  hintText: "Password",
                 ),
                 validator: (val) =>
                     val!.length < 6 ? 'Enter an password 6+ characters long' : null,
@@ -94,11 +94,12 @@ class _SignInState extends State<SignIn> {
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {
                     setState(() => loading = true);
-                    dynamic result =
+                    RegistrationSignInReturn  result =  // originally dynamic =
                         await _auth.signInWithEmailAndPassword(email, password);
-                    if (result == null) {
+                    if (result.flag == null) {
                       setState(() {
-                        error = "Sign In Failed!!!";
+                        //error = "Sign In Failed!!!";
+                        error = result.description;
                         loading = false;
                       });
                     }
